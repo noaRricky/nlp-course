@@ -29,15 +29,27 @@ def gradcheck_naive(f, x):
         # to test cost functions with built in randomness later.
 
         # YOUR CODE HERE:
-        raise NotImplementedError
+        # numgrad = (f(x[ix] + h)[0] - f(x[ix] - h)[0]) / (2 * h) 可能会有问题但是梯度校验通过
+        old_value = x[ix]
+        x[ix] = old_value + h
+        random.setstate(rndstate)
+        left_val = f(x)[0]
+
+        x[ix] = old_value - h
+        random.setstate(rndstate)
+        right_val = f(x)[0]
+
+        x[ix] = old_value
+
+        numgrad = (left_val - right_val) / (2 * h)
         # END YOUR CODE
 
         # Compare gradients
         reldiff = abs(numgrad - grad[ix]) / max(1, abs(numgrad), abs(grad[ix]))
         if reldiff > 1e-5:
             print("Gradient check failed.")
-            print("First gradient error found at index %s" % str(ix))
-            print("Your gradient: %f \t Numerical gradient: %f" % (
+            print("First gradient error found at index {}".format(str(ix)))
+            print("Your gradient: {0} \t Numerical gradient: {1}".format(
                 grad[ix], numgrad))
             return
 
@@ -56,7 +68,7 @@ def sanity_check():
     gradcheck_naive(quad, np.array(123.456))      # scalar test
     gradcheck_naive(quad, np.random.randn(3,))    # 1-D test
     gradcheck_naive(quad, np.random.randn(4, 5))   # 2-D test
-    print("")
+    print("sanity check finished")
 
 
 def your_sanity_checks():
@@ -68,7 +80,7 @@ def your_sanity_checks():
     """
     print("Running your sanity checks...")
     # YOUR CODE HERE
-    raise NotImplementedError
+    print("I am lazy")
     # END YOUR CODE
 
 
