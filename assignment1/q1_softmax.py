@@ -30,11 +30,13 @@ def softmax(x: np.array) -> np.array:
 
     if len(x.shape) > 1:
         # Matrix
-        x_min = np.min(x, axis=1)[:, np.newaxis]
+        # x_min = np.min(x, axis=1)[:, np.newaxis] 原方法多出改变形状的步骤
+        x_min = np.min(x, axis=1, keepdims=True)
         x = x - x_min
 
         x = np.exp(x)
-        x_sum = x.sum(axis=1)[:, np.newaxis]
+        # x_sum = x.sum(axis=1)[:, np.newaxis] 原方法效率不高
+        x_sum = np.sum(x, axis=1, keepdims=True)
         x = x / x_sum
     else:
         # Vector
