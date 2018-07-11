@@ -5,7 +5,7 @@ import random
 
 from q1_softmax import softmax
 from q2_gradcheck import gradcheck_naive
-from q2_sigmoid import sigmoid, sigmoid_grad
+from q2_sigmoid import sigmoid
 
 
 def normalizeRows(x):
@@ -141,7 +141,6 @@ def negSamplingCostAndGradient(predicted, target, outputVectors, dataset,
     for k in range(K):
         samp = indices[k + 1]
         grad[samp] -= samp_grads[k]
-    daf
     # END YOUR CODE
 
     return cost, gradPred, grad
@@ -210,7 +209,13 @@ def cbow(currentWord, C, contextWords, tokens, inputVectors, outputVectors,
     gradOut = np.zeros(outputVectors.shape)
 
     # YOUR CODE HERE
-    raise NotImplementedError
+    pred_indices = [tokens[word] for word in contextWords]
+    pred_vectors = inputVectors[pred_indices]
+    predicted = np.sum(pred_vectors, axis=0)
+    target = tokens[currentWord]
+    cost, gradIn_pred, gradOut = word2vecCostAndGradient(predicted, target, outputVectors, dataset)
+    for i in pred_indices:
+        gradIn[i] += gradIn_pred
     # END YOUR CODE
 
     return cost, gradIn, gradOut
