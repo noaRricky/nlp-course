@@ -124,14 +124,24 @@ def negSamplingCostAndGradient(predicted, target, outputVectors, dataset,
     grad[target] += (z - 1) * predicted
     gradPred += (z - 1) * outputVectors[target]
 
+    # calculate negative sampling
+    u = outputVectors[indices[1:]]
+    # print('u: {}'.format(u))
+    # print(np.dot(u, predicted))
+    z = sigmoid(-np.dot(u, predicted))
+    cost -= np.sum(np.log(z))
+    # print('z - 1: {}'.format(z - 1))
+    z = z - 1
+    z = z[:, np.newaxis]
+    gradPred -= np.sum(z * u, axis=0)
+    # print('z - 1: {}'.format(z))
+    # print('v_c: {}'.format(predicted))
+    samp_grads = z * predicted
+    # print('samp_grads: {}'.format(samp_grads))
     for k in range(K):
         samp = indices[k + 1]
-        z = sigmoid(-np.dot(outputVectors[samp], predicted))
-
-        # calculate each sample
-        cost -= np.log(z)
-        grad[samp] -= (z - 1) * predicted
-        gradPred -= (z - 1) * outputVectors[samp]
+        grad[samp] -= samp_grads[k]
+    daf
     # END YOUR CODE
 
     return cost, gradPred, grad
