@@ -298,6 +298,7 @@ def test_word2vec():
                dummy_tokens, dummy_vectors[:5,
                                            :], dummy_vectors[5:, :], dataset,
                negSamplingCostAndGradient))
+    print('congraduation!')
 
 
 if __name__ == "__main__":
