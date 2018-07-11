@@ -62,7 +62,8 @@ def sanity_check():
     """
     Some basic sanity checks.
     """
-    def quad(x): return (np.sum(x ** 2), x * 2)
+    def quad(x):
+        return (np.sum(x ** 2), x * 2)
 
     print("Running sanity checks...")
     gradcheck_naive(quad, np.array(123.456))      # scalar test
