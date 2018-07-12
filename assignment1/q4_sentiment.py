@@ -3,6 +3,7 @@
 import argparse
 import numpy as np
 import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import itertools
 
@@ -16,8 +17,6 @@ from q3_sgd import load_saved_params
 # the functions yourself!
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
-
-matplotlib.use('agg')
 
 
 def getArguments():
