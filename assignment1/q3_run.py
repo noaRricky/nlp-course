@@ -7,8 +7,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 import time
 
-from q3_word2vec import skipgram, negSamplingCostAndGradient, word2vec_sgd_wrapper
+from q3_word2vec import word2vec_sgd_wrapper, skipgram, negSamplingCostAndGradient
 from q3_sgd import sgd
+
 
 matplotlib.use('agg')
 
