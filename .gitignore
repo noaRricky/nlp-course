@@ -1,4 +1,7 @@
-/.vscode/
-/.idea/
-/.assignment1/utils/datasets/
-/assignment1/utils/datasets/
+.vscode/
+.idea/
+.assignment1/utils/datasets/
+.assignment1/utils/__pycache__/
+.assignment1/__pycache__/
+.tensorflow_toturial/birth_life_2010.txt
+.tensorflow_toturial/.vscode
