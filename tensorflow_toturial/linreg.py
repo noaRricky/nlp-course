@@ -23,8 +23,8 @@ X = tf.placeholder(tf.float32, name='X')
 Y = tf.placeholder(tf.float32, name='Y')
 
 # Step 3: create weight and bias, initialized to 0
-w = tf.get_variable('weights', initializer=tf.constant(0.0))
-b = tf.get_variable('bias', initializer=tf.constant(0.0))
+w = tf.get_variable('weights', initializer=tf.zeros_initializer())
+b = tf.get_variable('bias', initializer=tf.zeros_initializer())
 
 # Step 4: build model to predict Y
 Y_predicted = w * X + b
