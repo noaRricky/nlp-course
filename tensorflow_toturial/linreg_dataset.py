@@ -11,7 +11,7 @@ import time
 import matplotlib.pyplot as plt
 import tensorflow as tf
 
-import utils
+from tensorflow_toturial import utils
 
 DATA_FILE = 'birth_life_2010.txt'
 
@@ -19,9 +19,9 @@ DATA_FILE = 'birth_life_2010.txt'
 data, n_samples = utils.read_birth_life_data(DATA_FILE)
 
 # Step 2: create Dataset and iterator
-dataset = tf.data.Dataset.from_tensor_slices((data[:, 0], data[:, 1]))
+data_set = tf.data.Dataset.from_tensor_slices((data[:, 0], data[:, 1]))
 
-iterator = dataset.make_initializable_iterator()
+iterator = data_set.make_initializable_iterator()
 X, Y = iterator.get_next()
 
 # Step 3: create weight and bias, initialized to 0
