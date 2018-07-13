@@ -20,8 +20,8 @@ data, n_samples = utils.read_birth_life_data(DATA_FILE)
 
 # Step 2: create placeholders for X (birth rate) and Y (life expectancy)
 # Remember both X and Y are scalars with type float
-X = tf.placeholder(dtype=tf.float32, shape=(None, ), name='birth_rate')
-Y = tf.placeholder(dtype=tf.float32, shape=(None, ), name='life_expect')
+X = tf.placeholder(dtype=tf.float32, name='birth_rate')
+Y = tf.placeholder(dtype=tf.float32, name='life_expect')
 
 # Step 3: create weight and bias, initialized to 0.0
 # Make sure to use tf.get_variable
@@ -32,7 +32,7 @@ b = tf.get_variable(name='bias', shape=(
 
 # Step 4: build model to predict Y
 # e.g. how would you derive at Y_predicted given X, w, and b
-Y_predicted = tf.add(tf.matmul(w, X) + b)
+Y_predicted = w * X + b
 
 # Step 5: use the square error as the loss function
 loss = tf.square(Y_predicted - Y, name='loss')
@@ -56,16 +56,15 @@ with tf.Session() as sess:
         for x, y in data:
             # Execute train_op and get the value of loss.
             # Don't forget to feed in data for placeholders
-            _, loss = sess.run((optimizer, loss), feed_dict={
-                               'birth_rate': x, 'life_expect': y})
-            total_loss += loss
+            _, cur_loss = sess.run([optimizer, loss], feed_dict={X: x, Y: y})
+            total_loss += cur_loss
         print('Epoch {0}: {1}'.format(i, total_loss / n_samples))
 
     # close the writer when you're done using it
     writer.close()
 
     # Step 9: output the values of w and b
-    w_out, b_out = sess.run(w, b, feed_dict={'birth_rate': x})
+    w_out, b_out = sess.run([w, b])
 
 print('Took: %f seconds' % (time.time() - start))
 
