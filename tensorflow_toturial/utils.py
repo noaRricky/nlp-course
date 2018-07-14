@@ -1,12 +1,12 @@
 import os
 import gzip
 import shutil
-import struct
+# import struct
 import urllib
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 import numpy as np
 import tensorflow as tf
 
@@ -14,10 +14,10 @@ import tensorflow as tf
 def huber_loss(labels, predictions, delta=14.0):
     residual = tf.abs(labels - predictions)
 
-    def f1(): 
+    def f1():
         return 0.5 * tf.square(residual)
 
-    def f2(): 
+    def f2():
         return delta * residual - 0.5 * tf.square(delta)
     return tf.cond(residual < delta, f1, f2)
 
